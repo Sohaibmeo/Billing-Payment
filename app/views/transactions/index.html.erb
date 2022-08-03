@@ -1,0 +1,10 @@
+<p>We have started</p>
+
+<p>
+<% @plan.each do |p| %>
+<%= p.name %>
+<br>
+<%= p.price %>
+<%= link_to 'Read More' ,about_path ,:class => 'btn btn-primary' %> 
+<br>
+<% end %> </p>

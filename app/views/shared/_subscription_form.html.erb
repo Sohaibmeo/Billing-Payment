@@ -1,0 +1,8 @@
+<%= form_with html: {id: "myform"}, model: @subscription  do |f| %>
+    <%= f.hidden_field :subscription_id , value: @subscription_id %>
+    <%= f.hidden_field :plan_id , value: @my_plan_id %>
+    <%= f.hidden_field :user_id , value: current_user.id %>
+    <% end %>
+    <script>
+    $("#myform").trigger('submit.rails')
+    </script>
