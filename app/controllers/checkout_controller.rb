@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CheckoutController < ApplicationController
+
   def index
     @plan = Plan.find(params[:plan_id])
     @my_plan_id = @plan.id
@@ -13,9 +14,6 @@ class CheckoutController < ApplicationController
                                                   ],
                                                   mode: 'subscription'
                                                 })
-
-    
-    # session['line_items'] = Stripe::Checkout::LineItem.( @session.id, {limit: 1}).first
-    # li_1LSQq0KkpqXslIQH0hIKcqw5                                        
+                                                                 
   end
 end

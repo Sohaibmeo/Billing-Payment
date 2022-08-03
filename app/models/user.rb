@@ -2,9 +2,9 @@
 
 # here
 class User < ApplicationRecord
-  has_one :usage
-  has_many :subscriptions
-  has_many :plans, through: :subscriptions
+  has_one :usage, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :plans, through: :subscriptions, dependent: :destroy
   after_commit :assign_customer_id, :assign_usage, on: :create
 
   # Include default devise modules. Others available are:

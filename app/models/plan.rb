@@ -2,10 +2,10 @@
 
 class Plan < ApplicationRecord
   after_commit :assign_product_id, on: :create
-  has_many :subscriptions
-  has_many :users, through: :subscriptions
-  has_many :items
-  has_many :features, through: :items
+  has_many :subscriptions, dependent: :destroy
+  has_many :users, through: :subscriptions, dependent: :destroy
+  has_many :items, dependent: :destroy
+  has_many :features, through: :items, dependent: :destroy
 
   def assign_product_id
     product = Stripe::Product.create(

@@ -11,7 +11,7 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
-gem 'sqlite3', '~> 1.4'
+gem 'pg'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 
@@ -37,4 +37,3 @@ group :test do
 end
 
 gem 'stripe', '~> 6.5'
-gem 'stripe-rails'
