@@ -13,7 +13,9 @@ Rails.application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+
+  config.action_mailer.default_url_options = { host: 'https://booktrekker.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
@@ -21,16 +23,10 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    domain: '127.0.0.1',
+    domain: 'gmail.com',
     authentication: :plain,
     user_name: 'Rails.application.credentials.MAILER_EMAIL',
     password: 'Rails.application.credentials.MAILER_PASSWORD',
-    enable_starttls_auto: true,
-    open_timeout: 5,
-    read_timeout: 5
-    # :domain => ENV['GMAIL_SMTP_USER'],
-    # :user_name => ENV['GMAIL_SMTP_USER'],
-    # :password => ENV['GMAIL_SMTP_PASSWORD'],
   }
 
   # Full error reports are disabled and caching is turned on.
