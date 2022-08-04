@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class FeatureUsesController < ApplicationController
+  before_action :authenticate_user!
+  def index
+    @feature_use = FeatureUse.all
+    @usage = Usage.find_by(id: current_user.usage.id)
+  end
+  def show
+    @feature_use = FeatureUse.find(params[:id])
+  end
   def create
     feature_use = FeatureUse.new(feature_use_params)
     feature_use.total_units = params[:feature_use][:total_units]

@@ -1,4 +1,4 @@
-class AddFeatreUse < ActiveRecord::Migration[7.0]
+class CreateFeatureUses < ActiveRecord::Migration[7.0]
   def change
     create_table :feature_uses do |t|
       t.integer :total_units

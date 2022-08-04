@@ -7,11 +7,11 @@ ruby '3.0.0'
 
 gem 'importmap-rails'
 gem 'jbuilder'
+gem 'pg'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
-gem 'pg'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckoutController < ApplicationController
-
+  before_action :authenticate_user!
   def index
     @plan = Plan.find(params[:plan_id])
     @my_plan_id = @plan.id
