@@ -6,7 +6,7 @@ class CheckoutController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @my_plan_id = @plan.id
     @session = Stripe::Checkout::Session.create({
-                                                  success_url: subscriptions_url(my_plan_id: @my_plan_id),
+                                                  success_url: new_subscription_url(my_plan_id: @my_plan_id),
                                                   cancel_url: 'http://127.0.0.1:3000/plans',
                                                   customer: current_user.customer_id,
                                                   line_items: [

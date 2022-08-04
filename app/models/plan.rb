@@ -6,7 +6,6 @@ class Plan < ApplicationRecord
   has_many :users, through: :subscriptions, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :features, through: :items, dependent: :destroy
-
   def assign_product_id
     product = Stripe::Product.create(
       name: name
@@ -18,7 +17,6 @@ class Plan < ApplicationRecord
       product: product['id']
     )
     self.product_id = product_price.id
-    puts product_id
     save
   end
 end

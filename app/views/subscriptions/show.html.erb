@@ -1,0 +1,8 @@
+<%= csrf_meta_tag %>
+<h2> <%= @plan.name%> </h2>
+<p><b>Total Charges</b> : <%= @sub.items.data[0].price.unit_amount %></p>
+<p><b>Subscribed at : </b><%= @time_start %></p>
+<p><b>Cycle Subscription :</b> <%= @time_recycle %></p>
+
+<%= button_to 'Unsubscribe' , subscription_path(@subscription.id) , :class => 'btn btn-danger'  ,method: :delete %>
+<%= link_to "Go Back",subscriptions_path, :class => 'btn btn-primary'  %>

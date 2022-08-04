@@ -1,5 +1,9 @@
-<h1> Processing Payment </h1>
-<%= @sub %>
-<%= render partial: "shared/subscription_form", locals: {subscription: @subscription , my_plan_id: @plan ,subscription_id: @subscription_id} %>
-
-    
+<h1> Subscriptions : </h1>
+<% @subscription.each do |s| %>
+<div style='margin-bottom:100px'>
+<%= s.id %>
+<% plan = Plan.find_by(id: s.plan_id) %>
+<%= plan.name  %>
+<%= link_to 'View' ,subscription_path(s) ,:class => 'btn btn-primary' %> 
+</div>
+<% end %>
