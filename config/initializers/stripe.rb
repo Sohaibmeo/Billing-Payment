@@ -2,8 +2,8 @@
 require 'stripe'
 
 Rails.configuration.stripe = {
-  publishable_key: "pk_test_51LFJP5KkpqXslIQHDL6hqnCmyvxcCndR005R3dd6GHx9yPrnrbCcISQccz70dfFW46mF1mj70lRhK88loCwdHjxK00TwR9zOpw",
-  secret_key: "sk_test_51LFJP5KkpqXslIQH7NMdUDWB46AReuHeHVzcpXraaOu6fGmyNvoxqJ5DOwbunhkzQ59ZTKngAbSRLhsYYmDzg8BO00yCU9lZPf"
+  publishable_key: Rails.application.credentials.STRIPE_PUBLISHABLE_KEY,
+  secret_key: Rails.application.credentials.STRIPE_SECRET_KEY
 }
 # Rails.application.configure do
 #   config.stripe.secret_key = Rails.application.credentials.STRIPE_SECRET_KEY
