@@ -3,19 +3,17 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @subscription = Subscription.all
+    @subscription = Subscription.where(user_id: current_user.id)
   end
-  
+
   def show
     @subscription = Subscription.find(params[:id])
     @plan = Plan.find_by(id: @subscription.plan_id)
     @sub = Stripe::Subscription.retrieve(
-      @subscription.subscription_id,
+      @subscription.subscription_id
     )
-    
     @time_start = Time.at(@sub.billing_cycle_anchor)
     @time_recycle = Time.at(@sub.current_period_end)
-
   end
 
   def new 
