@@ -8,9 +8,9 @@
     
     <%= p.unit_price %>
     <%= render partial: "shared/featureuse_form", locals: {feat_use: @new_feat_use , feature: p , total: @feature.count } %>
+    
     <% if @feat_use.exists? %>
         <% filter_featuse = @feat_use.find_by(usage_id: @usage.id,feature_id: p.id) %> 
-      
         <% del_id =  filter_featuse.id %>
         <% if del_id %>
           <%= button_to'Change' , feature_use_path(del_id) , :class => 'btn btn-danger'  ,method: :delete ,remote:true %>
