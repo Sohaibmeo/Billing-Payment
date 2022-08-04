@@ -29,7 +29,7 @@ class SubscriptionsController < ApplicationController
     subscription.plan_id = params[:subscription][:plan_id]
     subscription.subscription_id = params[:subscription][:subscription_id]
     subscription.save
-    redirect_to plan_path
+    redirect_to plans_path
   end
   def destroy
     @subscription = Subscription.find(params[:id])
