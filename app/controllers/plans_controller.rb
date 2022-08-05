@@ -3,6 +3,7 @@
 class PlansController < ApplicationController
   add_flash_types :info, :error, :warning, :success
   before_action :authenticate_user!
+  
   def index
     @plan = Plan.all
   end

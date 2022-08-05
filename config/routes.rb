@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'about', to: 'about#index', as: :about
   resources :feature_uses
   resources :plans do
-    resources :features
     resources :checkout
   end
   devise_scope :user do

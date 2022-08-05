@@ -3,12 +3,10 @@
 class FeatureUsesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @feature_use = FeatureUse.all
+    @feature_use = FeatureUse.where(usage_id: current_user.usage.id)
     @usage = Usage.find_by(id: current_user.usage.id)
   end
-  def show
-    @feature_use = FeatureUse.find(params[:id])
-  end
+  
   def create
     feature_use = FeatureUse.new(feature_use_params)
     feature_use.total_units = params[:feature_use][:total_units]
@@ -26,6 +24,8 @@ class FeatureUsesController < ApplicationController
     amount = @feature_use.total_units - @feature_use.feature.max_unit_limit
     deduct_overuse(@feature_use) if amount.positive?
   end
+  
+  private
 
   def deduct_overuse(feature_use)
     usage = current_user.usage

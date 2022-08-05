@@ -8,6 +8,8 @@ class UsagesController < ApplicationController
     usage.save
   end
 
+  private 
+
   def usage_params
     params.require(:usage).permit(:user_id)
   end
