@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+Gems Needed versions: 
+ruby '3.0.0'
+gem 'rails_admin', '~> 3.0'
+gem 'stripe', '~> 6.5'
 
 * Configuration
 
 * Database creation
+Post gres gem 'pg'
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
