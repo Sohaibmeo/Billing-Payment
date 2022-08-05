@@ -21,25 +21,30 @@ class SubscriptionsController < ApplicationController
     @subscription_id = Stripe::Subscription.list({ customer: current_user.customer_id }).first.id
     @subscription = Subscription.new
   end
-  
+
   def create
     subscription = Subscription.new(subscription_params)
     subscription.user_id = current_user.id
     subscription.plan_id = params[:subscription][:plan_id]
     subscription.subscription_id = params[:subscription][:subscription_id]
+    subscription.overuse = current_user.usage.overuse_total.round
     subscription.save
+    usage = Usage.find_by(id: current_user.usage.id)
+    usage.overuse_total = 0
+    usage.save
     redirect_to plans_path
   end
   def destroy
     @subscription = Subscription.find(params[:id])
+    subscription_del_from_stripe(@subscription.subscription_id)
     @subscription.destroy
     flash.now[:success] = 'Succesfully Deleted'
-    subscription_del_from_stripe(@subscription.subscription_id)
+    
     redirect_to subscriptions_path
   end
 
-  private 
-  
+  private
+
   def subscription_params
     params.require(:subscription).permit(:subscription_id, :user_id, :plan_id)
   end
