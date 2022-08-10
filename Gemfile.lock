@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/sudosu/rails_admin_pundit.git
+  revision: 5fde2da4120bde58b5edf4e0a3351d392ddee85c
+  specs:
+    rails_admin_pundit (0.0.1)
+      pundit (>= 0.2.3)
+      rails_admin (>= 0.6.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -163,6 +171,8 @@ GEM
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
+    pundit (2.2.0)
+      activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.4)
     rack-test (2.0.2)
@@ -276,6 +286,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)
   rails_admin (~> 3.0)
+  rails_admin_pundit!
   redis (~> 4.0)
   sassc-rails
   selenium-webdriver

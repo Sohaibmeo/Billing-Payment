@@ -6,6 +6,9 @@ class Plan < ApplicationRecord
   has_many :users, through: :subscriptions, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :features, through: :items, dependent: :destroy
+  validates :name, uniqueness: true
+  validates :price, numericality: true
+
   def assign_product_id
     product = Stripe::Product.create(
       name: name

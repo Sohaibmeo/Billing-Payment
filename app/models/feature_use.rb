@@ -3,4 +3,6 @@
 class FeatureUse < ApplicationRecord
   belongs_to :feature
   belongs_to :usage
+  validates :feature, uniqueness: { scope: :plan_id }
+  validates :plan_id, :total_units, presence: true
 end

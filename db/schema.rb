@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_10_041315) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_10_095202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_041315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "plan_id"
+    t.index ["feature_id", "plan_id"], name: "index_feature_uses_on_feature_id_and_plan_id", unique: true
     t.index ["feature_id"], name: "index_feature_uses_on_feature_id"
     t.index ["usage_id"], name: "index_feature_uses_on_usage_id"
   end
@@ -32,6 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_041315) do
     t.integer "max_unit_limit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_features_on_code", unique: true
+    t.index ["name"], name: "index_features_on_name", unique: true
   end
 
   create_table "items", force: :cascade do |t|
@@ -40,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_041315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["feature_id"], name: "index_items_on_feature_id"
+    t.index ["plan_id", "feature_id"], name: "index_items_on_plan_id_and_feature_id", unique: true
     t.index ["plan_id"], name: "index_items_on_plan_id"
   end
 
@@ -50,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_041315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "product_id"
+    t.index ["name"], name: "index_plans_on_name", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -59,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_041315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "overuse"
+    t.index ["plan_id", "user_id"], name: "index_subscriptions_on_plan_id_and_user_id", unique: true
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end

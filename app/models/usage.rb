@@ -5,7 +5,7 @@ class Usage < ApplicationRecord
   belongs_to :user
   has_many :feature_uses, dependent: :destroy
   has_many :features, through: :feature_uses, dependent: :destroy
-
+  validates :user, uniqueness: true
   def set_defaults
     self.overuse_total = 0 if new_record?
   end
