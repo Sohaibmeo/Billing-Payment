@@ -1,13 +1,16 @@
-<h1>Feature Usages :</h1> 
-<p>Over Use Total :<%  @usage.overuse_total %> </p>
+
+<h1>Feature Usages History:</h1> 
 <% @feature_use.each do |f| %>
 <% feature = Feature.find_by(id: f.feature_id) %>
-<p>Feature Name : <%= feature.name %>  </p>
+<p><strong>Feature Name : <%= feature.name %>  </strong></p>
 <p>Feature Price : <%= feature.unit_price %>  </p>
+<% plan = Plan.find_by(id: f.plan_id ) %>
+<p>Plan : <%= plan.name %>  </p>
 <p> Selected amount : <%= f.total_units %></p>
 <p>Max limit : <%= feature.max_unit_limit %>  </p>
 <% if f.total_units > feature.max_unit_limit %>
 <b>OVER USED</b>
 <% end %>
-<%= button_to 'Delete' ,feature_use_path(f) ,:class => 'btn btn-danger' ,method: :delete , remote: true %> 
+
 <% end %>
+ 

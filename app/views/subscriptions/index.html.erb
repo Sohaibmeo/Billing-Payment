@@ -1,9 +1,14 @@
-<h1> Subscriptions : </h1>
+
+<div>
+
+<h1> Current Subscriptions : </h1>
 <% @subscription.each do |s| %>
 <div style='margin-bottom:100px'>
-<%= s.id %>
 <% plan = Plan.find_by(id: s.plan_id) %>
-<%= plan.name  %>
-<%= link_to 'View' ,subscription_path(s) ,:class => 'btn btn-primary' %> 
+<p>Plan: <%= plan.name  %>
+<%= link_to 'Details' ,subscription_path(s) ,:class => 'btn btn-primary' %> </p>
 </div>
 <% end %>
+
+
+</div>

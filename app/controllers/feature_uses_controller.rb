@@ -2,6 +2,7 @@
 
 class FeatureUsesController < ApplicationController
   before_action :authenticate_user!
+  
   def index
     @feature_use = FeatureUse.where(usage_id: current_user.usage.id)
     @usage = Usage.find_by(id: current_user.usage.id)
@@ -11,6 +12,7 @@ class FeatureUsesController < ApplicationController
     feature_use = FeatureUse.new(feature_use_params)
     feature_use.total_units = params[:feature_use][:total_units]
     feature_use.feature_id = params[:feature_use][:feature_id]
+    feature_use.plan_id = params[:feature_use][:plan_id]
     user = current_user.usage
     feature_use.usage_id = user.id
     feature_use.save
@@ -39,7 +41,7 @@ class FeatureUsesController < ApplicationController
   end
 
   def feature_use_params
-    params.require(:feature_use).permit(:total_units, :feature_id, :usage_id)
+    params.require(:feature_use).permit(:total_units, :feature_id, :usage_id, :plan_id)
   end
 
   def calculate_overuse(feature_use)

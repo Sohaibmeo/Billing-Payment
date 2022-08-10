@@ -1,10 +1,11 @@
-
+<div>
 <p>
 <% @plan.each do |p| %>
-    <%= p.name %>
-    <br>
-    <%= p.price %>
+    <p><b>Plan Name: </b><%= p.name %> </p>
+    <p><b>Price:  </b><%= p.price %></p>
+    <%= link_to 'Set Features' ,plan_path(p) ,:class => 'btn btn-primary' %> 
     
-    <%= link_to 'Read More' ,plan_path(p) ,:class => 'btn btn-primary' %> 
-    <br>
 <% end %> </p>
+
+</div>
+<br>

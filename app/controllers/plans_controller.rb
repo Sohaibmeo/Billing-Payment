@@ -12,7 +12,6 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     @feature = @plan.features
     @new_feat_use = FeatureUse.new
-    @feat_use = FeatureUse.all
     @usage = current_user.usage
   end
 end

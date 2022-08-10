@@ -1,8 +1,22 @@
-# frozen_string_literal: true
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# Creating seed admin user
+user = User.new
+user.email = 'sohaibmayo12@gmail.com'
+user.password = 'Devsinc'
+user.password_confirmation = 'Devsinc'
+user.admin = true
+user.save!
+
+#Creating Seed Features
+feature = Feature.new
+feature.name = 'Free Salad'
+feature.code = '0001'
+feature.unit_price = 3
+feature.max_unit_limit = 6
+feature.save!
+
+#Creating Seed Plan Including Above Features
+plan = Plan.new
+plan.name = 'Weekly Lunch'
+plan.price = 30
+plan.feature_ids = feature.id
+plan.save
