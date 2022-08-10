@@ -15,8 +15,11 @@ class FeatureUsesController < ApplicationController
     feature_use.plan_id = params[:feature_use][:plan_id]
     user = current_user.usage
     feature_use.usage_id = user.id
-    feature_use.save
-    calculate_overuse(feature_use)
+    if feature_use.save
+      calculate_overuse(feature_use)
+    else
+      flash.now[:error] = 'Could Not Save'
+    end
   end
 
   def destroy

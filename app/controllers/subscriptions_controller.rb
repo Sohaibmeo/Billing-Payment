@@ -16,7 +16,7 @@ class SubscriptionsController < ApplicationController
     @time_recycle = Time.at(@sub.current_period_end)
   end
 
-  def new 
+  def new
     @my_plan_id = params[:my_plan_id]
     @subscription_id = Stripe::Subscription.list({ customer: current_user.customer_id }).first.id
     @subscription = Subscription.new
@@ -28,19 +28,28 @@ class SubscriptionsController < ApplicationController
     subscription.plan_id = params[:subscription][:plan_id]
     subscription.subscription_id = params[:subscription][:subscription_id]
     subscription.overuse = current_user.usage.overuse_total.round
-    subscription.save
-    usage = Usage.find_by(id: current_user.usage.id)
-    usage.overuse_total = 0
-    usage.save
-    redirect_to plans_path
+    if subscription.save
+      usage = Usage.find_by(id: current_user.usage.id)
+      usage.overuse_total = 0
+      usage.save
+      redirect_to subscriptions_path
+    else
+      redirect_to plans_path
+    end
   end
+
   def destroy
     @subscription = Subscription.find(params[:id])
     subscription_del_from_stripe(@subscription.subscription_id)
     @plan = @subscription.plan_id
-    @subscription.destroy
-    flash.now[:success] = 'Succesfully Deleted'
-    redirect_to subscriptions_path
+    if @subscription.destroy
+      flash.now[:success] = 'Succesfully Deleted'
+      @featureuse = FeatureUse.where(plan_id: @plan)
+      @featureuse.destroy_all
+      redirect_to subscriptions_path
+    else
+      flash.now[:error] = 'Could Not Delete'
+    end
   end
 
   private
@@ -48,6 +57,7 @@ class SubscriptionsController < ApplicationController
   def subscription_params
     params.require(:subscription).permit(:subscription_id, :user_id, :plan_id)
   end
+
   def subscription_del_from_stripe(subs)
     @sub = Stripe::Subscription.retrieve(
       subs
