@@ -5,6 +5,7 @@ class PlansController < ApplicationController
   before_action :authenticate_user!
   def index
     @plan = Plan.all
+    @subscriptions = Subscription.where(id: current_user.subscription_ids)
   end
 
   def show

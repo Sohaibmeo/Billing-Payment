@@ -30,6 +30,5 @@ class CheckoutController < ApplicationController
                                                   }],
                                                   mode: @type
                                                 })
-                                                                 
   end
 end
