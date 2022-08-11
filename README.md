@@ -3,10 +3,15 @@
 Gems Needed versions: 
 
 gem 'rails', '~> 7.0.3'
-ruby '3.0.0'
+
+gem 'ruby' '3.0.0'
+
 gem 'stripe', '~> 6.5'
+
 gem 'devise'
+
 gem 'devise_invitable', '~> 2.0.0'
+
 gem 'rails_admin', '~> 3.0'
 
 
