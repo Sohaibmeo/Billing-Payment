@@ -8,7 +8,13 @@
     
     <p>Price:  <%= p.unit_price %>$</p>
     <%= render partial: "shared/featureuse_form", locals: {feat_use: @new_feat_use , feature: p , total: @feature.count ,plan: @plan} %>
-  
+
+   <% feat_use = FeatureUse.find_by(usage_id: @usage.id, feature_id: p.id, plan_id: @plan.id) %>
+        <% if feat_use%>
+        <div id='change'>
+        <%= button_to'Delete Prvious Entry' , feature_use_path(feat_use.id) , :class => 'btn btn-danger' ,id: "del" ,method: :delete ,onclick: "style = 'display: none';"%>
+        </div>
+    <% end %>
       
 <% end %>
 

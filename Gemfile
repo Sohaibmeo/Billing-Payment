@@ -35,6 +35,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-gem "rails_admin_pundit", :github => "sudosu/rails_admin_pundit"
 
 gem 'stripe', '~> 6.5'
+
+gem "pundit", "~> 2.2"

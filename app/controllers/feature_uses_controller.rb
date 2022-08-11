@@ -24,12 +24,15 @@ class FeatureUsesController < ApplicationController
 
   def destroy
     @feature_use = FeatureUse.find(params[:id])
-    @feature_use.destroy
-    flash.now[:success] = 'Succesfully Deleted'
-    amount = @feature_use.total_units - @feature_use.feature.max_unit_limit
-    deduct_overuse(@feature_use) if amount.positive?
+    if @feature_use.destroy
+      flash.now[:success] = 'Succesfully Deleted'
+      amount = @feature_use.total_units - @feature_use.feature.max_unit_limit
+      deduct_overuse(@feature_use) if amount.positive?
+    else
+      flash.now[:error] = 'Could Not Delete'
+    end
   end
-  
+
   private
 
   def deduct_overuse(feature_use)
@@ -57,7 +60,6 @@ class FeatureUsesController < ApplicationController
       u.overuse_total = total
       u.over_limit = true
       u.save
-      u
     end
   end
 end
