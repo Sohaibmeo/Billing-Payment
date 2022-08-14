@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    redirect_to plans_url, alert: 'You Are Not Authorized'
+    redirect_to '/plans', alert: 'You Are Not Authorized'
   end
 
   def after_sign_in_path_for(_resource_or_scope)
