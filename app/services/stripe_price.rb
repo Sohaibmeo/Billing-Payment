@@ -1,4 +1,4 @@
-class StripeSubscription
+class StripePrice
   def initialize(product_to_use)
     @product = product_to_use
   end
