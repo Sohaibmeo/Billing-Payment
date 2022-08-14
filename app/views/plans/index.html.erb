@@ -3,13 +3,12 @@
 <% @plan.each do |p| %>
     <p><b>Plan Name: </b><%= p.name %> </p>
     <p><b>Price:  </b><%= p.price %></p>
-    <% @subscribed = @subscriptions.find_by(plan_id: p.id) %>
-    <% if @subscribed.nil? %>
+    <% subscribed = subscribed(p.id) %>
+    <% if subscribed.nil? %>
     <%= link_to 'Subscribe' ,plan_path(p) ,:class => 'btn btn-primary' %> 
     <% else %>
-    <%= link_to 'View Subscription' ,subscription_path(@subscribed.id) ,:class => 'btn btn-success' %> 
+    <%= link_to 'View Subscription' ,subscription_path(subscribed.id) ,:class => 'btn btn-success' %> 
     <% end %>
 <% end %> </p>
-
 </div>
 <br>

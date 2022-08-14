@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeatureUsePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -6,15 +8,15 @@ class FeatureUsePolicy < ApplicationPolicy
   end
 
   def index?
-    @user.admin?
+    @user
   end
 
   def show?
-    @user.admin?
+    @user
   end
 
   def create?
-    @user.admin?
+    @user
   end
 
   def new?
@@ -22,7 +24,7 @@ class FeatureUsePolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin?
+    @user
   end
 
   def edit?
@@ -30,6 +32,6 @@ class FeatureUsePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin?
+    @user
   end
 end

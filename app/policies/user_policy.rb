@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -10,11 +12,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    @user.admin?
-  end
-
-  def create?
-    @user.admin?
+    @user
   end
 
   def new?
@@ -27,9 +25,5 @@ class UserPolicy < ApplicationPolicy
 
   def edit?
     update?
-  end
-
-  def destroy?
-    @user.admin?
   end
 end

@@ -1,11 +1,10 @@
 <%= csrf_meta_tag %>
 <div>
-<h2><b>Plan: </b> <%= @plan.name%> </h2>
-<p><b>Total Charges</b> : <%= @sub.items.data[0].price.unit_amount/100 %>$</p>
-<p><b>Subscribed at : </b><%= @time_start %></p>
-<p><b>Cycle Subscription :</b> <%= @time_recycle %></p>
-
-
+<% plan = plan_by_id(@subscription.plan_id) %>
+<h2><b>Plan: </b> <%= plan.name %> </h2>
+<p><b>Total Charges</b> : <%= item_price(@sub.items) %>$</p>
+<p><b>Subscribed at : </b><%= time_zone(@sub.billing_cycle_anchor) %></p>
+<p><b>Cycle Subscription :</b> <%= time_zone(@sub.current_period_end) %></p> 
 <%= button_to 'Unsubscribe' , subscription_path(@subscription.id) , :class => 'btn btn-danger'  ,method: :delete %>
 <%= link_to "Go Back",subscriptions_path, :class => 'btn btn-primary'  %>
 </div>

@@ -38,4 +38,6 @@ end
 
 gem 'stripe', '~> 6.5'
 
-gem "pundit", "~> 2.2"
+gem 'pundit', '~> 2.2'
+
+gem 'rubocop', '~> 1.35'

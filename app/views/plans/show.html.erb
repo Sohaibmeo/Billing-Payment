@@ -3,27 +3,21 @@
 
 <p>Price:  <%= @plan.price %> $</p>
 <h1>Features: </h1>
-<% @feature.each do |p| %>
+<% feature = feature(@plan) %>
+<% feature.each do |p| %>
     <h5>Name : <%= p.name %></h5>
-    
     <p>Price:  <%= p.unit_price %>$</p>
-    <%= render partial: "shared/featureuse_form", locals: {feat_use: @new_feat_use , feature: p , total: @feature.count ,plan: @plan} %>
-
-   <% feat_use = FeatureUse.find_by(usage_id: @usage.id, feature_id: p.id, plan_id: @plan.id) %>
-        <% if feat_use%>
+    <%= render partial: "shared/featureuse_form", locals: {feat_use: @new_feat_use , feature: p , total: feature.count ,plan: @plan} %>
+   <% feat_use = feature_use(@plan.id, p.id) %>
+        <% if feat_use %>
         <div id='change'>
-        <%= button_to'Delete Prvious Entry' , feature_use_path(feat_use.id) , :class => 'btn btn-danger' ,id: "del" ,method: :delete ,onclick: "style = 'display: none';"%>
+        <%= button_to'Delete Previous Entry' , feature_use_path(feat_use.id) , :class => 'btn btn-danger' ,id: "del" ,method: :delete ,onclick: "style = 'display: none';"%>
         </div>
     <% end %>
-      
 <% end %>
-
 <hr>
-
 <%= link_to 'Subscribe' ,plan_checkout_index_path(@plan), :class => 'btn btn-primary', id: 'subs',method: :post  , remote: true %> 
-
 <%= link_to "Go Back",plans_path,:class => 'btn btn-danger'  %>
-
 <script>
 document.getElementById("subs").style.display = "none";
 </script>

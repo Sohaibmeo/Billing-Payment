@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlanPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -6,30 +8,10 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.admin?
+    @user
   end
 
   def show?
     @user
-  end
-
-  def create?
-    @user.admin?
-  end
-
-  def new?
-    create?
-  end
-
-  def update?
-    @user.admin?
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    @user.admin?
   end
 end
