@@ -48,7 +48,13 @@ rails s
 And now you can visit the site with the URL https://booktrekker.herokuapp.com/
 
 
-* Seed User Account:
+* Seed User Admin Account:
 name      : sohaibmayo12@gmail.com
 password  : Devsinc
+
+* Other Accounts : 
+name      :f180166@nu.edu.pk
+name      :sohaib.mmeo@devsinc.com
+pass      : Devsinc
+
 
