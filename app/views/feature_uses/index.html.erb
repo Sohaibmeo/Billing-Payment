@@ -5,7 +5,7 @@
     <% feature = feature_by_id(f.feature_id) %>
     <p><strong>Feature Name : <%= feature.name %>  </strong></p>
     <p>Feature Price : <%= feature.unit_price %>  </p>
-    <% plan = plan_by_id(f.plan_id) %>
+    <% plan = plan_by_id(feature.plan_id) %>
     <p>Plan : <%= plan.name %>  </p>
     <p> Used amount : <%= f.total_units %></p>
     <p>Max limit : <%= feature.max_unit_limit %>  </p>
