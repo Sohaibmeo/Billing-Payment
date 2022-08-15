@@ -8,4 +8,12 @@ module ApplicationHelper
   def plan_by_id(id)
     Plan.find_by(id: id)
   end
+
+  def time_date(time)
+    DateTime.strptime(Time.zone.at(time).utc.to_i.to_s, '%s').strftime('%d %m %y')
+  end
+
+  def time_zone(time)
+    Time.zone.at(time)
+  end
 end

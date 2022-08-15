@@ -5,7 +5,7 @@ class StripeSubscription
 
   def retreive_subscription
     Stripe::Subscription.retrieve(
-      @subscription.subscription_id
+      @subscription
     )
   end
 

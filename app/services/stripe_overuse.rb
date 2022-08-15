@@ -1,20 +1,31 @@
 class StripeOveruse
-  def initialize(plan_to_use, user_to_use, succes_url)
-    @plan = plan_to_use
-    @current_user = user_to_use
-    @success_url = succes_url
+  def initialize(subscription_to_use)
+    @subscription = subscription_to_use
   end
 
   def over_use
-    overuse_price = @current_user.usage.overuse_total.round * 100
-    product = Stripe::Product.create(
-      name: 'Overcharge'
+    customer = Stripe::Customer.retrieve(@subscription.user.customer_id)
+    card = Stripe::Customer.create_source(
+      customer.id,
+      { source: 'tok_amex' }
     )
-    product_price = Stripe::Price.create(
-      currency: 'usd',
-      unit_amount: overuse_price,
-      recurring: { interval: 'month' },
-      product: product['id']
-    )
+    charge = Stripe::Charge.create(
+      {
+        amount: @subscription.overuse * 100,
+        currency: 'usd',
+        customer: customer.id,
+        source: card,
+        description: 'OverCharge Payment'
+      })
+    current_user = User.find_by(id: @subscription.user.id)
+    plan = Plan.find_by(id: @subscription.plan_id)
+    plan.features.each do |f|
+      feature = Feature.find_by(id: f.id)
+      feature.feature_uses.each do |fu|
+        fu.total_units = 0
+        fu.save
+      end
+    end
+    return charge unless nil?
   end
 end

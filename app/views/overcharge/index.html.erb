@@ -1,0 +1,22 @@
+<% @users.each do |u| %>
+  <b>User : </b><%= u.email %>
+  <% u.plans.each do |p| %> 
+    <br><b>Subscription : </b><%= p.name %>
+    <% feature_use = feature_use_by_plan_usage(p.id, u.usage.id) %>
+    <% subscription = subscription_by_plan_user(p.id,u)%>
+    <% subscription.overuse = 0 %>
+    <% feature_use.each do |fu| %>
+      <% units = fu.total_units - fu.feature.max_unit_limit %>
+      <% subscription.overuse += units * fu.feature.unit_price if units.positive? %>
+    <% end%>
+    <%if subscription.save%>
+        <b>Billing Date: </b><%= time_zone(subscription.date_end) %>
+        <b>Overcharge : </b><%= subscription.overuse %>
+    <% end %> 
+    <% if time_date(subscription.date_end)  && subscription.overuse > 0 %>
+      <% session['subscription'] = subscription.id %>
+      <%= link_to 'Charge', overcharge_create_url(),class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+  </p>
+<% end %>

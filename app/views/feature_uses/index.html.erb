@@ -1,14 +1,16 @@
 
 <h1>Feature Usages History:</h1> 
 <% @feature_use.each do |f| %>
+  <% if f.total_units > 0 %>
     <% feature = feature_by_id(f.feature_id) %>
     <p><strong>Feature Name : <%= feature.name %>  </strong></p>
     <p>Feature Price : <%= feature.unit_price %>  </p>
     <% plan = plan_by_id(f.plan_id) %>
     <p>Plan : <%= plan.name %>  </p>
-    <p> Selected amount : <%= f.total_units %></p>
+    <p> Used amount : <%= f.total_units %></p>
     <p>Max limit : <%= feature.max_unit_limit %>  </p>
     <% if f.total_units > feature.max_unit_limit %>
-        <b>OVER USED</b>
+      <b>OVER USED</b>
     <% end %>
+  <% end %>
 <% end %>

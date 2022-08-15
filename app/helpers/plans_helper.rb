@@ -4,12 +4,20 @@ module PlansHelper
     return subscriptions.find_by(plan_id: plan) unless nil?
   end
 
+  def new_feature_use(plan, feature)
+    feature_use = FeatureUse.new
+    feature_use.total_units = 0
+    feature_use.usage_id = current_user.usage.id
+    feature_use.plan_id = plan
+    feature_use.feature_id = feature
+    feature_use.save
+  end
+
   def feature(plan)
     plan.features
   end
 
   def feature_use(plan, feature)
-    usage = usage()
-    return FeatureUse.find_by(usage_id: usage.id, feature_id: feature, plan_id: plan) unless nil?
+    return FeatureUse.find_by(usage_id: current_user.usage.id, feature_id: feature, plan_id: plan) unless nil?
   end
 end

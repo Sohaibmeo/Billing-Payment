@@ -8,6 +8,9 @@
       <li class="nav-item active">
           <%= link_to "Usage",feature_uses_path,class: "nav-link" %>
       </li>
+      <li class="nav-item active">
+          <%= link_to "Transactions",transactions_path,class: "nav-link" %>
+      </li>
       <li class="nav-item">
          <%= link_to "Subscription",subscriptions_path,class: "nav-link" %>
       </li>
@@ -21,11 +24,11 @@
             <% if current_user.admin %>
             <%= link_to "Admin",rails_admin_path ,class: "dropdown-item" %>
             <%= link_to "Invite",new_user_invitation_path,class: "dropdown-item" %>
+            <%= link_to "Charge",overcharge_index_path,class: "dropdown-item" %>
             <% end %>
         <% else %>
            <%= link_to "Sign In",new_user_session_path ,class: "dropdown-item" %>
         <% end %>
-        
         </div>
       </li>
     </ul>
