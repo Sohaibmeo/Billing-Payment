@@ -10,7 +10,11 @@ module PlansHelper
     feature_use.usage_id = current_user.usage.id
     feature_use.plan_id = plan
     feature_use.feature_id = feature
-    feature_use.save
+    begin
+      feature_use.save!
+    rescue ActiveRecord::RecordInvalid => invalid
+      puts invalid.record.errors.each
+    end
   end
 
   def feature(plan)

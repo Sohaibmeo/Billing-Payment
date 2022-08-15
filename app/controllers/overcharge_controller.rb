@@ -5,6 +5,7 @@ class OverchargeController < ApplicationController
 
   def create
     subscription = Subscription.find(session['subscription'])
+    authorize subscription
     charge = StripeOveruse.new(subscription).over_use
     if charge.nil?
       redirect_to overcharge_index_path, alert: 'Unsuccessful Could Not Charge'

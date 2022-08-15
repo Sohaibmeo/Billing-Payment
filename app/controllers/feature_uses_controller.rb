@@ -3,16 +3,18 @@
 class FeatureUsesController < ApplicationController
   def index
     @feature_use = FeatureUse.where(usage_id: current_user.usage.id)
+    authorize @feature_use
   end
 
   def create
     feature_use = FeatureUse.new(new_feature_use_params)
     feature_use.save
-    authorize feature_use
+    authorize feature_use, :create?
   end
 
   def destroy
     feature_use = FeatureUse.find(params[:id])
+    authorize feature_use, :destroy?
     if feature_use.destroy
       redirect_to request.referer, notice: 'Successfully Deleted'
     else

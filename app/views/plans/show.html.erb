@@ -6,8 +6,10 @@
 <% feature = feature(@plan) %>
 <% feature.each do |p| %>
     <% new_feat_use = new_feature_use(@plan.id, p.id) %>
-    <h5>Name : <%= p.name %></h5>
+    <p>Name : <%= p.name %></p>
     <p>Price:  <%= p.unit_price %>$</p>
+    <p>Max Limit:<%= p.max_unit_limit %></p>
+    <hr>
 <% end %>
 <hr>
 <% session['plan_id'] = @plan.id %>

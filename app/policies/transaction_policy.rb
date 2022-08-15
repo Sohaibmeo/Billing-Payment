@@ -4,4 +4,8 @@ class TransactionPolicy < ApplicationPolicy
         scope.all
       end
     end
+
+    def index?
+      @user
+    end
 end

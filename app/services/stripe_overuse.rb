@@ -23,7 +23,11 @@ class StripeOveruse
       feature = Feature.find_by(id: f.id)
       feature.feature_uses.each do |fu|
         fu.total_units = 0
-        fu.save
+        begin
+          fu.save!
+        rescue ActiveRecord::RecordInvalid => invalid
+          puts invalid.record.errors
+        end
       end
     end
     return charge unless nil?
