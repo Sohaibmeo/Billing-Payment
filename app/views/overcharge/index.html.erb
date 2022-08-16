@@ -13,7 +13,7 @@
         <b>Billing Date: </b><%= time_zone(subscription.date_end) %>
         <b>Overcharge : </b><%= subscription.overuse %>
     <% end %> 
-    <% if time_date(subscription.date_end) && subscription.overuse > 0 %>
+    <% if time_date(subscription.date_end) == time_date(Time.now.to_i) && subscription.overuse > 0 %>
       <% session['subscription'] = subscription.id %>
       <%= link_to 'Charge', overcharge_create_url(),class: 'btn btn-primary' %>
     <% end %>
