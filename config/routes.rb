@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'overcharge/create'
   resources :subscriptions, only: [ :index, :show, :new, :create, :destroy ]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, :skip => [:registrations]
   resources :feature_uses, only: [ :index, :create, :destroy ]
   resources :plans, only: [:index, :show] do
     resources :checkout, only: :index

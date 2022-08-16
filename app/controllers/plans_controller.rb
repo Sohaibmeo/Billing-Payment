@@ -8,6 +8,6 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find(params[:id])
-    authorize @plan, :show?
+    authorize @plan
   end
 end

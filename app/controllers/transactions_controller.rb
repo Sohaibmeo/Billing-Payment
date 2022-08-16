@@ -6,7 +6,11 @@ class TransactionsController < ApplicationController
 
   def new
     transaction = Transaction.new
-    StripeTransactions.new(current_user).fetch_new_transaction(transaction)
-    redirect_to subscriptions_path, notice: 'Subscription and Transaction added'
+    new_data = StripeTransactions.new(current_user).fetch_new_transaction(transaction)
+    if new_data.nil?
+      redirect_to subscriptions_path, notice: 'Could Not Create Transaction'
+    else
+      redirect_to subscriptions_path, notice: 'Transaction done successfully'
+    end
   end
 end

@@ -18,12 +18,12 @@ class SubscriptionsController < ApplicationController
     stripe_subscription = StripeSubscription.new(@subscription_id).retreive_subscription
     @date_end = stripe_subscription.current_period_end
     @subscription = Subscription.new
-    authorize @subscription, :create?
+    authorize @subscription
   end
 
   def create
     subscription = Subscription.new(subscription_params)
-    authorize subscription, :create?
+    authorize subscription
     if subscription.save
       redirect_to new_transaction_path, notice: 'Subscribed successfully'
     else
@@ -33,7 +33,7 @@ class SubscriptionsController < ApplicationController
 
   def destroy
     subscription = current_user.subscriptions.find(params[:id])
-    authorize subscription, :destroy?
+    authorize subscription
     plan = subscription.plan_id
     if subscription.destroy
       FeatureUse.where(plan_id: plan, usage_id: current_user.usage.id).destroy_all

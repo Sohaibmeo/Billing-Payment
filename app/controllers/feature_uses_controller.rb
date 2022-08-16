@@ -9,17 +9,7 @@ class FeatureUsesController < ApplicationController
   def create
     feature_use = FeatureUse.new(new_feature_use_params)
     feature_use.save
-    authorize feature_use, :create?
-  end
-
-  def destroy
-    feature_use = FeatureUse.find(params[:id])
-    authorize feature_use, :destroy?
-    if feature_use.destroy
-      redirect_to request.referer, notice: 'Successfully Deleted'
-    else
-      redirect_to request.referer, alert: 'Could Not Delete'
-    end
+    authorize feature_use
   end
 
   private
