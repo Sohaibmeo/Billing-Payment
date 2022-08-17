@@ -15,11 +15,7 @@ class SubscriptionsController < ApplicationController
 
   def new
     @my_plan_id = session['plan_id']
-    @subscription = Subscription.new
-    authorize @subscription
-    @subscription_id = StripeSubscription.new(current_user.customer_id).recent_subscription
-    stripe_subscription = StripeSubscription.new(@subscription_id).retreive_subscription
-    @date_end = stripe_subscription.current_period_end
+    new_stripe_subscription
   end
 
   def create
@@ -35,11 +31,8 @@ class SubscriptionsController < ApplicationController
   def destroy
     subscription = current_user.subscriptions.find(params[:id])
     authorize subscription
-    plan = subscription.plan_id
     if subscription.destroy
-      FeatureUse.where(plan_id: plan, usage_id: current_user.usage.id).destroy_all
-      subscribed = StripeSubscription.new(subscription.subscription_id).retreive_subscription
-      StripeSubscription.new(subscribed).delete_subscription
+      delete_stripe_subscription(subscription)
       redirect_to subscriptions_path, notice: 'Succesfully Unsubscribed'
     else
       redirect_to subscriptions_path, alert: 'Could Not Unsubscribe'
@@ -47,6 +40,21 @@ class SubscriptionsController < ApplicationController
   end
 
   private
+
+  def delete_stripe_subscription(subscription)
+    plan = subscription.plan_id
+    FeatureUse.where(plan_id: plan, usage_id: current_user.usage.id).destroy_all
+    subscribed = StripeSubscription.new(subscription.subscription_id).retreive_subscription
+    StripeSubscription.new(subscribed).delete_subscription
+  end
+
+  def new_stripe_subscription
+    @subscription = Subscription.new
+    authorize @subscription
+    @subscription_id = StripeSubscription.new(current_user.customer_id).recent_subscription
+    stripe_subscription = StripeSubscription.new(@subscription_id).retreive_subscription
+    @date_end = stripe_subscription.current_period_end
+  end
 
   def subscription_params
     params.require(:subscription).permit(:subscription_id, :user_id, :plan_id, :overuse, :date_end)
