@@ -2,8 +2,8 @@
 
 class PlansController < ApplicationController
   def index
-    @plan = Plan.all
-    authorize @plan
+    @plans = Plan.all
+    authorize @plans
   end
 
   def show

@@ -1,17 +1,16 @@
 <%= csrf_meta_tag %>
 <h1> <b>Plan : </b><%= @plan.name %> </h1>
-
 <p>Price:  <%= @plan.price %> $</p>
 <h1>Features: </h1>
-<% feature = feature(@plan) %>
-<% feature.each do |p| %>
-    <% new_feat_use = new_feature_use(@plan.id, p.id) %>
-    <p>Name : <%= p.name %></p>
-    <p>Price:  <%= p.unit_price %>$</p>
-    <p>Max Limit:<%= p.max_unit_limit %></p>
-    <hr>
+<% features = feature(@plan) %>
+<% features.each do |feature| %>
+  <% new_feat_use = new_feature_use( @plan.id, feature.id ) %>
+  <p>Name : <%= feature.name %></p>
+  <p>Price:  <%= feature.unit_price %>$</p>
+  <p>Max Limit:<%= feature.max_unit_limit %></p>
+  <hr>
 <% end %>
 <hr>
 <% session['plan_id'] = @plan.id %>
-<%= link_to 'Subscribe' ,plan_checkout_index_path(@plan), :class => 'btn btn-primary', id: 'subs',method: :post  , remote: true %> 
-<%= link_to "Go Back",plans_path,:class => 'btn btn-danger'  %>
+<%= link_to 'Subscribe' , plan_checkout_index_path(@plan), class: 'btn btn-primary', id: 'subs', method: :post, remote: true %> 
+<%= link_to "Go Back", plans_path, class: 'btn btn-danger' %>

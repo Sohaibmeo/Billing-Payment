@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class CheckoutController < ApplicationController
+  before_action :params
+
   def index
-    user = User.find_by(id: current_user.id)
-    plan_id = session['plan_id']
-    plan = Plan.find_by(id: plan_id)
-    success_url = new_subscription_url
-    @session = InitiateSession.new(plan, user, success_url).initiate_session
-    redirect_to @session.url, allow_other_host: true
+    session = StripeSession.new(@plan, @user, @success_url, @cancel_url).initiate_session
+    redirect_to session.url, allow_other_host: true
+  end
+
+  private
+
+  def params
+    @user = User.find_by(id: current_user.id)
+    authorize @user
+    @plan = Plan.find_by(id: session['plan_id'])
+    authorize @plan
+    @success_url = new_subscription_url
+    @cancel_url = root_url
   end
 end

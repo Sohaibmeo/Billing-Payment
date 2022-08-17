@@ -1,8 +1,8 @@
 <% @transactions.each do |invoice| %>
-<%= invoice.description %>
-<b>Billing Cycle: </b><%= time_zone(invoice.billing_cycle) %>
-<b>Amount Paid: </b><%= invoice.amount %>$
-<%= link_to 'View', invoice.hosted_invoice_url, class: 'btn btn-primary' %>
-<%= link_to 'Download',invoice.invoice_pdf, class: 'btn btn-secondary' %>
-<br><hr>
+  <%= invoice.description %>
+  <b>Billing Cycle: </b><%= time_zone(invoice.billing_cycle) %>
+  <b>Amount Paid: </b><%= invoice.amount %>$
+  <%= link_to 'View', invoice.hosted_invoice_url, class: 'btn btn-primary' %>
+  <%= link_to 'Download', invoice.invoice_pdf, class: 'btn btn-secondary' %>
+  <br><hr>
 <% end %>

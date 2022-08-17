@@ -1,11 +1,11 @@
 
 <div>
 <h1> Current Subscriptions : </h1>
-<% @subscription.each do |s| %>
-<div >
-<% plan = plan_by_id(s.plan_id) %>
-<p>Plan: <%= plan.name  %>
-<%= link_to 'Details' ,subscription_path(s) ,:class => 'btn btn-primary' %> </p>
-</div>
+<% @subscriptions.each do |subscription| %>
+  <div >
+  <% plan = plan_by_id(subscription.plan_id) %>
+  <p>Plan: <%= plan.name  %>
+  <%= link_to 'Details', subscription_path(subscription), class: 'btn btn-primary' %> </p>
+  </div>
 <% end %>
 </div>

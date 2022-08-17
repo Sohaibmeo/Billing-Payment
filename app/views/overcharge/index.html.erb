@@ -1,21 +1,20 @@
-<% @users.each do |u| %>
-  <b>User : </b><%= u.email %>
-  <% u.plans.each do |p| %> 
-    <br><b>Subscription : </b><%= p.name %>
-    <% feature_use = feature_use_by_plan_usage(p.id, u.usage.id) %>
-    <% subscription = subscription_by_plan_user(p.id,u)%>
+<% @users.each do |user| %>
+  <b>User : </b><%= user.email %>
+  <% user.plans.each do |plan| %> 
+    <br><b>Subscription : </b><%= plan.name %>
+    <% feature_uses = feature_use_by_plan_usage(plan.id, user.usage.id) %>
+    <% subscription = subscription_by_plan_user(plan.id, user) %>
     <% subscription.overuse = 0 %>
-    <% feature_use.each do |fu| %>
-      <% calculate_units(fu, subscription) %>
-    <% end%>
-    <%if subscription.save%>
-        <b>Billing Date: </b><%= time_zone(subscription.date_end) %>
-        <b>Overcharge : </b><%= subscription.overuse %>
+    <% feature_uses.each do |feature_use| %>
+      <% calculate_units(feature_use, subscription) %>
+    <% end %>
+    <% if subscription.save %>
+      <b>Billing Date: </b><%= time_zone(subscription.date_end) %>
+      <b>Overcharge : </b><%= subscription.overuse %>
     <% end %> 
     <% if time_date(subscription.date_end) == time_date(Time.now.to_i) && subscription.overuse > 0 %>
       <% session['subscription'] = subscription.id %>
-      <%= link_to 'Charge', overcharge_create_url(),class: 'btn btn-primary' %>
+      <%= link_to 'Charge', overcharge_create_url, class: 'btn btn-primary' %>
     <% end %>
   <% end %>
-  </p>
 <% end %>

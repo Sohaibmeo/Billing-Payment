@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
   add_flash_types :info, :error, :warning, :success
 
   private
-
+  
   def user_not_authorized
-    redirect_to '/plans', alert: 'You Are Not Authorized'
+    redirect_back fallback_location: '/', alert: 'You Are Not Authorized'
   end
 
   def after_sign_in_path_for(_resource_or_scope)

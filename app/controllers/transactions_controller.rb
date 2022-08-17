@@ -8,6 +8,7 @@ class TransactionsController < ApplicationController
 
   def new
     transaction = Transaction.new
+    authorize transaction
     new_data = StripeTransactions.new(current_user).fetch_new_transaction(transaction)
     if new_data.nil?
       redirect_to subscriptions_path, notice: 'Could Not Create Transaction'

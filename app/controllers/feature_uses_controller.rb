@@ -8,8 +8,8 @@ class FeatureUsesController < ApplicationController
 
   def create
     feature_use = FeatureUse.new(new_feature_use_params)
-    feature_use.save
     authorize feature_use
+    feature_use.save
   end
 
   private

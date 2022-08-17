@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
+
   def index
-    @subscription = Subscription.where(user_id: current_user.id)
-    authorize @subscription
+    @subscriptions = Subscription.where(user_id: current_user.id)
+    authorize @subscriptions
   end
 
   def show
     @subscription = current_user.subscriptions.find(params[:id])
     authorize @subscription
-    @sub = StripeSubscription.new(@subscription.subscription_id).retreive_subscription
+    @stripe_subscription = StripeSubscription.new(@subscription.subscription_id).retreive_subscription
   end
 
   def new
     @my_plan_id = session['plan_id']
+    @subscription = Subscription.new
+    authorize @subscription
     @subscription_id = StripeSubscription.new(current_user.customer_id).recent_subscription
     stripe_subscription = StripeSubscription.new(@subscription_id).retreive_subscription
     @date_end = stripe_subscription.current_period_end
-    @subscription = Subscription.new
-    authorize @subscription
   end
 
   def create
