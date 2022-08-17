@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  default_url_options host: 'https://booktrekker.herokuapp.com'
   resources :transactions, only: %i[index new]
   get 'overcharge/index'
   get 'overcharge/create'

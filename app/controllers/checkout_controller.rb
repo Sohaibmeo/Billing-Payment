@@ -15,7 +15,5 @@ class CheckoutController < ApplicationController
     authorize @user
     @plan = Plan.find_by(id: session['plan_id'])
     authorize @plan
-    @success_url = new_subscription_url
-    @cancel_url = root_url
   end
 end
