@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InitiateSession
   def initialize(plan_to_use, user_to_use, succes_url)
     @plan = plan_to_use

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StripeSubscription
   def initialize(subscription_to_use)
     @subscription = subscription_to_use

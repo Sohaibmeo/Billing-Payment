@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StripeOveruse
   def initialize(subscription_to_use)
     @subscription = subscription_to_use
@@ -16,8 +18,8 @@ class StripeOveruse
         customer: customer.id,
         source: card,
         description: 'OverCharge Payment'
-      })
-    current_user = User.find_by(id: @subscription.user.id)
+      }
+    )
     plan = Plan.find_by(id: @subscription.plan_id)
     plan.features.each do |f|
       feature = Feature.find_by(id: f.id)
@@ -25,8 +27,8 @@ class StripeOveruse
         fu.total_units = 0
         begin
           fu.save!
-        rescue ActiveRecord::RecordInvalid => invalid
-          puts invalid.record.errors
+        rescue ActiveRecord::RecordInvalid => e
+          Rails.logger.debug e.record.errors
         end
       end
     end

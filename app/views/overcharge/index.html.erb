@@ -6,8 +6,7 @@
     <% subscription = subscription_by_plan_user(p.id,u)%>
     <% subscription.overuse = 0 %>
     <% feature_use.each do |fu| %>
-      <% units = fu.total_units - fu.feature.max_unit_limit %>
-      <% subscription.overuse += units * fu.feature.unit_price if units.positive? %>
+      <% calculate_units(fu, subscription) %>
     <% end%>
     <%if subscription.save%>
         <b>Billing Date: </b><%= time_zone(subscription.date_end) %>

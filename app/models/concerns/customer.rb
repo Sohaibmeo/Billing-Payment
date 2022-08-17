@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Customer
   extend ActiveSupport::Concern
   included do

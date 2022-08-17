@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StripePrice
   def initialize(product_to_use)
     @product = product_to_use

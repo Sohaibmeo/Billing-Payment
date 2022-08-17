@@ -7,5 +7,6 @@ class CheckoutController < ApplicationController
     plan = Plan.find_by(id: plan_id)
     success_url = new_subscription_url
     @session = InitiateSession.new(plan, user, success_url).initiate_session
+    redirect_to @session.url, allow_other_host: true
   end
 end

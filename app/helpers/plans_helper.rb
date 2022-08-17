@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PlansHelper
   def subscribed(plan)
     subscriptions = Subscription.where(id: current_user.subscription_ids)
@@ -12,8 +14,8 @@ module PlansHelper
     feature_use.feature_id = feature
     begin
       feature_use.save!
-    rescue ActiveRecord::RecordInvalid => invalid
-      puts invalid.record.errors.each
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.debug e.record.errors.each
     end
   end
 

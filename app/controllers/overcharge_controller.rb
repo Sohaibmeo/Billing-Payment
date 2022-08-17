@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class OverchargeController < ApplicationController
-  before_action :is_admin?
+  before_action :admin?
   def index
     @users = User.joins(:subscriptions).group('users.id').having('count(subscriptions.id) > 0')
   end
@@ -17,7 +19,7 @@ class OverchargeController < ApplicationController
 
   private
 
-  def is_admin?
+  def admin?
     redirect_to plans_path, alert: 'You Are Not Authorized' unless current_user.admin?
   end
 end
