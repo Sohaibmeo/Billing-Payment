@@ -19,16 +19,16 @@
           Account
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <% if current_user %>
-           <%= link_to "Sign out", destroy_user_session_path, class: "dropdown-item", method: :delete %>
-            <% if current_user.admin %>
-              <%= link_to "Admin", rails_admin_path , class: "dropdown-item" %>
-              <%= link_to "Invite", new_user_invitation_path, class: "dropdown-item" %>
-              <%= link_to "Charge", overcharge_index_path, class: "dropdown-item" %>
-            <% end %>
-        <% else %>
-           <%= link_to "Sign In", new_user_session_path, class: "dropdown-item" %>
-        <% end %>
+          <% if current_user %>
+            <%= link_to "Sign out", destroy_user_session_path, class: "dropdown-item", method: :delete %>
+              <% if current_user.admin %>
+                <%= link_to "Admin", rails_admin_path , class: "dropdown-item" %>
+                <%= link_to "Invite", new_user_invitation_path, class: "dropdown-item" %>
+                <%= link_to "Charge", overcharge_index_path, class: "dropdown-item" %>
+              <% end %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path, class: "dropdown-item" %>
+          <% end %>
         </div>
       </li>
     </ul>
