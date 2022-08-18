@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :info, :error, :warning, :success
 
   private
-  
+
   def user_not_authorized
     redirect_back fallback_location: '/', alert: 'You Are Not Authorized'
   end
