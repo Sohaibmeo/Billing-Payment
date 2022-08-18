@@ -1,6 +1,7 @@
 <%= csrf_meta_tag %>
 <div>
   <% plan = plan_by_id(@subscription.plan_id) %>
+  <% policy(plan) %>
   <h2><b>Plan: </b> <%= plan.name %> </h2>
   <p><b>Total Charges</b> : <%= item_price(@stripe_subscription.items) %>$</p>
   <p><b>Subscribed at : </b><%= time_zone(@stripe_subscription.billing_cycle_anchor) %></p>

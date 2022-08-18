@@ -1,4 +1,5 @@
-<% @transactions.each do |invoice| %>
+<% policy_scope(@transactions).each do |invoice| %>
+  <% policy(invoice) %>
   <%= invoice.description %>
   <b>Billing Cycle: </b><%= time_zone(invoice.billing_cycle) %>
   <b>Amount Paid: </b><%= invoice.amount %>$

@@ -1,9 +1,12 @@
 <%= csrf_meta_tag %>
+<% policy(@plan) %>
 <h1> <b>Plan : </b><%= @plan.name %> </h1>
 <p>Price:  <%= @plan.price %> $</p>
 <h1>Features: </h1>
 <% features = feature(@plan) %>
+<% policy(features) %>
 <% features.each do |feature| %>
+  <% policy(feature) %>
   <% new_feat_use = new_feature_use( @plan.id, feature.id ) %>
   <p>Name : <%= feature.name %></p>
   <p>Price:  <%= feature.unit_price %>$</p>

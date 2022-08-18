@@ -1,8 +1,9 @@
 
 <div>
   <h1> Current Subscriptions : </h1>
-  <% @subscriptions.each do |subscription| %>
+  <% policy_scope(@subscriptions).each do |subscription| %>
     <div >
+      <% policy(subscription) %> 
       <% plan = plan_by_id(subscription.plan_id) %>
       <p>Plan: <%= plan.name  %>
       <%= link_to 'Details', subscription_path(subscription), class: 'btn btn-primary' %> </p>
