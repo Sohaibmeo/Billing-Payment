@@ -4,8 +4,7 @@ class CheckoutController < ApplicationController
   before_action :fetch_values
 
   def index
-    session = StripeSession.new(@plan, @user).initiate_session
-    redirect_to session.url, allow_other_host: true
+    @session = StripeSession.new(@plan, @user).initiate_session
   end
 
   private
