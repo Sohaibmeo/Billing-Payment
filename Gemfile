@@ -46,3 +46,7 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec' # or gem 'rubocop-rspec' depending on your test suite
 end
+
+group :development, :test do
+  gem 'rspec-rails'
+end
