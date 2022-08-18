@@ -40,4 +40,9 @@ gem 'stripe', '~> 6.5'
 
 gem 'pundit', '~> 2.2'
 
-gem 'rubocop', '~> 1.35'
+group :development, :test do
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-minitest' # or gem 'rubocop-rspec' depending on your test suite
+end

@@ -4,7 +4,7 @@ class OverchargeController < ApplicationController
   before_action :admin?
 
   def index
-    @users = User.joins(:subscriptions).group('users.id').having('count(subscriptions.id) > 0')
+    @users = User.existing_subscriptions
   end
 
   def create
