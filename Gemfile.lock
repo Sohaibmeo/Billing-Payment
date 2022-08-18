@@ -226,8 +226,6 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
-    rubocop-minitest (0.21.0)
-      rubocop (>= 0.90, < 2.0)
     rubocop-performance (1.10.2)
       rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -235,6 +233,9 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.90.0, < 2.0)
+    rubocop-rspec (1.44.1)
+      rubocop (~> 0.87)
+      rubocop-ast (>= 0.7.1)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
     sassc (2.4.0)
@@ -308,9 +309,9 @@ DEPENDENCIES
   rails_admin (~> 3.0)
   redis (~> 4.0)
   rubocop
-  rubocop-minitest
   rubocop-performance
   rubocop-rails
+  rubocop-rspec
   sassc-rails
   selenium-webdriver
   sprockets-rails
