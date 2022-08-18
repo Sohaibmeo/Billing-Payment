@@ -29,3 +29,6 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
+
+Rails:
+  Enabled: true
