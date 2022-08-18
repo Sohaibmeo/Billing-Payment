@@ -46,5 +46,3 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec' # or gem 'rubocop-rspec' depending on your test suite
 end
-
-gem "erb_lint", "~> 0.1.3"

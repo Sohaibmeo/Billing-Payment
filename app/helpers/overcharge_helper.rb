@@ -6,7 +6,9 @@ module OverchargeHelper
   end
 
   def subscription_by_plan_user(plan, user)
-    Subscription.find_by(plan_id: plan, user_id: user)
+    subscription = Subscription.find_by(plan_id: plan, user_id: user)
+    subscription.overuse = 0
+    return subscription unless subscription.nil?
   end
 
   def calculate_units(feature_use, subscription)

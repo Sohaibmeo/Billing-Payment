@@ -4,7 +4,6 @@
     <br><b>Subscription : </b><%= plan.name %>
     <% feature_uses = feature_use_by_plan_usage(plan.id, user.usage.id) %>
     <% subscription = subscription_by_plan_user(plan.id, user) %>
-    <% subscription.overuse = 0 %>
     <% feature_uses.each do |feature_use| %>
       <% calculate_units(feature_use, subscription) %>
     <% end %>
