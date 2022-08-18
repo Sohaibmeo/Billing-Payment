@@ -7,7 +7,6 @@
     <p><strong>Feature Name : <%= feature.name %>  </strong></p>
     <p>Feature Price : <%= feature.unit_price %>  </p>
     <% plan = plan_by_id(feature.plan_ids) %>
-    <% policy(plan) %>
     <p> Plan : <%= plan.name %>  </p>
     <p> Used amount : <%= feature_use.total_units %> </p>
     <p> Max limit : <%= feature.max_unit_limit %>  </p>
