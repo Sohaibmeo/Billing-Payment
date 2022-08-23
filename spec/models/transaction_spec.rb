@@ -9,15 +9,19 @@ RSpec.describe Transaction, type: :model do
 
   let(:transaction) { described_class.new(user_id: user.id, amount: 1, billing_cycle: 1) }
 
-  it { expect(transaction).to validate_numericality_of(:amount).is_greater_than(0) }
+  context 'with validations' do
+    it { expect(transaction).to validate_numericality_of(:amount).is_greater_than(0) }
 
-  it { expect(transaction).to validate_numericality_of(:billing_cycle).is_greater_than(0) }
+    it { expect(transaction).to validate_numericality_of(:billing_cycle).is_greater_than(0) }
 
-  it { expect(transaction).to belong_to(:user) }
+    it 'has a unique billing_cycle with scoped user_id' do
+      transaction.save
+      transaction2 = described_class.new(user_id: user.id, amount: 1, billing_cycle: 1)
+      expect(transaction2).to be_invalid
+    end
+  end
 
-  it 'has a unique billing_cycle with scoped user_id' do
-    transaction.save
-    transaction2 = described_class.new(user_id: user.id, amount: 1, billing_cycle: 1)
-    expect(transaction2).to be_invalid
+  context 'with associations' do
+    it { expect(transaction).to belong_to(:user) }
   end
 end
