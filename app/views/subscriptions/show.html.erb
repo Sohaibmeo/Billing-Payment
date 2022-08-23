@@ -3,9 +3,11 @@
   <% plan = plan_by_id(@subscription.plan_id) %>
   <% policy(plan) %>
   <h2><b>Plan: </b> <%= plan.name %> </h2>
+  <% unless @stripe_subscription.nil? %>
   <p><b>Total Charges</b> : <%= item_price(@stripe_subscription.items) %>$</p>
   <p><b>Subscribed at : </b><%= time_zone(@stripe_subscription.billing_cycle_anchor) %></p>
   <p><b>Cycle Subscription :</b> <%= time_zone(@stripe_subscription.current_period_end) %></p> 
   <%= button_to 'Unsubscribe', subscription_path(@subscription.id), class: 'btn btn-danger', method: :delete %>
+  <% end %>
   <%= link_to "Go Back",subscriptions_path, class: 'btn btn-primary' %>
 </div>

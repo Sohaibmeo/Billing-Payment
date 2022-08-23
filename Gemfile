@@ -33,6 +33,8 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
+  gem 'simplecov'
   gem 'webdrivers'
 end
 
@@ -50,3 +52,5 @@ end
 group :development, :test do
   gem 'rspec-rails'
 end
+
+gem "rails-controller-testing", "~> 1.0"

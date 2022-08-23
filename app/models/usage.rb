@@ -10,6 +10,6 @@ class Usage < ApplicationRecord
   private
 
   def set_defaults
-    self.overuse_total = 0 if new_record?
+    self.overuse_total = 0
   end
 end

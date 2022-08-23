@@ -16,4 +16,6 @@ RSpec.describe User, type: :model do
   it { expect(user).to have_many(:transactions) }
 
   it { expect(user).to validate_uniqueness_of(:email).ignoring_case_sensitivity }
+
+  it { expect { user.save }.to change(user, :customer_id) }
 end

@@ -31,11 +31,10 @@ class SubscriptionsController < ApplicationController
   def destroy
     subscription = current_user.subscriptions.find(params[:id])
     authorize subscription
-    if subscription.destroy
-      redirect_to subscriptions_path, notice: 'Succesfully Unsubscribed'
-    else
-      redirect_to subscriptions_path, alert: 'Could Not Unsubscribe'
-    end
+    subscription.destroy
+    redirect_to subscriptions_path, notice: 'Succesfully Unsubscribed'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to subscriptions_path, notice: 'Could not be Unsubscribed'
   end
 
   private
