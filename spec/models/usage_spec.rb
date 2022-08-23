@@ -17,7 +17,7 @@ RSpec.describe Usage, type: :model do
     it { expect(usage).to have_many(:features).through(:feature_uses) }
   end
 
-  context 'with callbacks' do
+  context 'when initialized' do
     it { expect(usage.overuse_total).to eq(0.0) }
   end
 

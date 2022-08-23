@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     it { expect(user).to validate_uniqueness_of(:email).ignoring_case_sensitivity }
   end
 
-  context 'with callbacks' do
+  context 'when saved' do
     it { expect { user.save }.to change(user, :customer_id) }
   end
 end

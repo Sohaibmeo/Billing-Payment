@@ -27,7 +27,7 @@ RSpec.describe Subscription, type: :model do
     it { expect(subscription).to belong_to(:user) }
   end
 
-  context 'with callbacks' do
+  context 'when destroyed' do
     it { expect { subscription.destroy }.to change(subscription, :overuse) }
   end
 end

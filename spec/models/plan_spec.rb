@@ -26,4 +26,8 @@ RSpec.describe Plan, type: :model do
 
     it { expect(plan).to have_many(:features).through(:items) }
   end
+
+  context 'when saved' do
+    it { expect { plan.save }.to change(plan, :product_id) }
+  end
 end
