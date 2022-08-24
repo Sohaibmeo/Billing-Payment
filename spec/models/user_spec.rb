@@ -5,7 +5,7 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe User, type: :model do
-  let(:user) { described_class.new(email: 'sohaib@gmail.com', password: 'Devsinc', password_confirmation: 'Devsinc') }
+  let(:user) { build(:user) }
 
   context 'with associations' do
     it { expect(user).to have_many(:subscriptions) }
@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
     it { expect(user).to have_many(:transactions) }
   end
 
-  context 'with validations' do
+  context 'when valided' do
     it { expect(user).to validate_uniqueness_of(:email).ignoring_case_sensitivity }
   end
 

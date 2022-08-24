@@ -5,7 +5,7 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe Feature, type: :model do
-  let(:feature) { described_class.new }
+  let(:feature) { build(:feature) }
 
   context 'with validations' do
     it { expect(feature).to validate_numericality_of(:max_unit_limit).is_greater_than(0) }
@@ -14,7 +14,7 @@ RSpec.describe Feature, type: :model do
 
     it { expect(feature).to validate_uniqueness_of :name }
 
-    it { expect(feature).to validate_uniqueness_of :code }
+    it { expect(feature).to validate_uniqueness_of(:code).case_insensitive }
 
     it { expect(feature).to validate_presence_of :name }
 

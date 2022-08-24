@@ -5,9 +5,9 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe 'SubscriptionsController', type: :request do
-  let(:demo_plan) { Plan.create(name: 'AnotherPlan', price: 20) }
-  let(:demo_user) { User.create(email: 'sohaibmayo12@gmail.com', password: 'Devsinc', password_confirmation: 'Devsinc') }
-  let(:demo_subscription) { Subscription.create(plan: demo_plan, user: demo_user, overuse: 0) }
+  let(:plan) { create(:plan) }
+  let(:user) { create(:user) }
+  let(:subscription) { create(:subscription, plan_id: plan.id, user_id: user.id) }
 
   context 'with no user' do
     it 'Index will redirect to login' do
@@ -16,22 +16,22 @@ RSpec.describe 'SubscriptionsController', type: :request do
     end
 
     it 'Show will redirect to login' do
-      get subscription_path(demo_subscription)
+      get subscription_path(subscription)
       expect(response).to redirect_to(new_user_session_path)
     end
 
     it 'New will respond with unauthorized' do
-      get new_subscription_path(demo_subscription)
+      get new_subscription_path(subscription)
       expect(response).to have_http_status(:unauthorized)
     end
 
     it 'Destroy will redirect to login' do
-      delete subscription_path(demo_subscription)
+      delete subscription_path(subscription)
       expect(response).to redirect_to(new_user_session_path)
     end
 
     it 'create  will redirect to login' do
-      params = { subscription: { plan: demo_plan, user: demo_user, overuse: 0 } }
+      params = { subscription: { plan: plan, user: user, overuse: 0 } }
       post subscriptions_path(params)
       expect(response).to redirect_to(new_user_session_path)
     end
@@ -39,7 +39,7 @@ RSpec.describe 'SubscriptionsController', type: :request do
 
   context 'with valid User,' do
     before do
-      sign_in demo_user
+      sign_in user
     end
 
     it 'Index will show subscriptions' do
@@ -48,7 +48,7 @@ RSpec.describe 'SubscriptionsController', type: :request do
     end
 
     it 'Show subscription by id' do
-      get subscription_path(demo_subscription)
+      get subscription_path(subscription)
       expect(response).to render_template(:show)
     end
 
@@ -59,7 +59,7 @@ RSpec.describe 'SubscriptionsController', type: :request do
 
     context 'when destroying subscription,' do
       it 'contains valid subscription belonging to user' do
-        delete subscription_path(demo_subscription)
+        delete subscription_path(subscription)
         expect(response).to redirect_to(subscriptions_path)
       end
 
@@ -71,13 +71,13 @@ RSpec.describe 'SubscriptionsController', type: :request do
 
     context 'when creating subscription,' do
       it 'contains valid attritbutes' do
-        params = { subscription: { user_id: demo_user.id, plan_id: demo_plan.id, overuse: 0 } }
+        params = { subscription: { user_id: user.id, plan_id: plan.id, overuse: 0 } }
         post subscriptions_path(params)
         expect(response).to redirect_to(new_transaction_path)
       end
 
       it 'contains invalid attritbutes' do
-        params = { subscription: { user_id: demo_user.id, plan_id: demo_plan.id, overuse: -1 } }
+        params = { subscription: { user_id: user.id, plan_id: plan.id, overuse: -1 } }
         post subscriptions_path(params)
         expect(response).to redirect_to(plans_path)
       end

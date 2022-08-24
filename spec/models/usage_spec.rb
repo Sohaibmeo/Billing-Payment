@@ -5,9 +5,9 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe Usage, type: :model do
-  let(:user) { User.create(email: 'sohaib@gmail.com', password: 'Devsinc', password_confirmation: 'Devsinc') }
+  let(:user) { create(:user) }
 
-  let(:usage) { described_class.new(user_id: user.id) }
+  let(:usage) { build(:usage, user_id: user.id) }
 
   context 'with associations' do
     it { expect(usage).to belong_to(:user) }
@@ -22,10 +22,6 @@ RSpec.describe Usage, type: :model do
   end
 
   context 'with validations' do
-    it 'has a unique usage with scoped user_id' do
-      usage.save
-      usage2 = described_class.new(user_id: user.id)
-      expect(usage2).to be_invalid
-    end
+    it { expect(usage).to validate_uniqueness_of(:user) }
   end
 end

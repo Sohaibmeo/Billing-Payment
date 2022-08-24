@@ -5,7 +5,7 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe Plan, type: :model do
-  let(:plan) { described_class.new(name: 'Hello', price: 20) }
+  let(:plan) { build(:plan) }
 
   context 'with validations' do
     it { expect(plan).to validate_presence_of :name }

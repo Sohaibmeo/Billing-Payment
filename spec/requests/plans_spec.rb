@@ -5,8 +5,8 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe 'PlansController', type: :request do
-  let(:demo_plan) { Plan.new(name: 'AnotherPlan', price: 20) }
-  let(:demo_user) { User.new(email: 'sohaibmayo12@gmail.com', password: 'Devsinc', password_confirmation: 'Devsinc') }
+  let(:plan) { build(:plan) }
+  let(:user) { build(:user) }
 
   context 'with no user' do
     it 'Index will redirect to login' do
@@ -15,17 +15,17 @@ RSpec.describe 'PlansController', type: :request do
     end
 
     it 'Show will redirect to login' do
-      demo_plan.save
-      get plan_path(demo_plan)
+      plan.save
+      get plan_path(plan)
       expect(response).to redirect_to(new_user_session_path)
     end
   end
 
   context 'with valid User,' do
     before do
-      demo_user.save
-      demo_plan.save
-      sign_in demo_user
+      user.save
+      plan.save
+      sign_in user
     end
 
     it 'Index will show plans' do
@@ -34,7 +34,7 @@ RSpec.describe 'PlansController', type: :request do
     end
 
     it 'Show plan by id' do
-      get plan_path(demo_plan)
+      get plan_path(plan)
       expect(response).to render_template(:show)
     end
   end
