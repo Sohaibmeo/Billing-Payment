@@ -5,5 +5,6 @@ FactoryBot.define do
     user_id { 20 }
     plan_id { 20 }
     overuse { 20 }
+    subscription_id { 'hehe' }
   end
 end

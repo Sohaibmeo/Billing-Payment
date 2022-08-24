@@ -56,3 +56,5 @@ group :development, :test do
 end
 
 gem "rails-controller-testing", "~> 1.0"
+
+gem "stripe-ruby-mock", "~> 2.5"
