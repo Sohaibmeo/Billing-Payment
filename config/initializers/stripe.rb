@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-Rails.application.configure do
-  config.stripe.secret_key = Rails.application.credentials.STRIPE_SECRET_KEY
-  config.stripe.publishable_key = Rails.application.credentials.STRIPE_PUBLISHABLE_KEY
-end
+require 'stripe'
 
-# Stripe.api_key = "sk_test_51LFJP5KkpqXslIQH7NMdUDWB46AReuHeHVzcpXraaOu6fGmyNvoxqJ5DOwbunhkzQ59ZTKngAbSRLhsYYmDzg8BO00yCU9lZPf"
+Rails.configuration.stripe = {
+  publishable_key: Rails.application.credentials.STRIPE_PUBLISHABLE_KEY,
+  secret_key: Rails.application.credentials.STRIPE_SECRET_KEY
+}
+
 Stripe.api_key = Rails.configuration.stripe[:secret_key]

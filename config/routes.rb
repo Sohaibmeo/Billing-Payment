@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :subscriptions
+  default_url_options host: 'https://booktrekker.herokuapp.com'
+  resources :transactions, only: %i[index new]
+  get 'overcharge/index'
+  get 'overcharge/create'
+  resources :subscriptions, only: %i[index show new create destroy]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users, controllers: { registrations: 'registrations' }
-  get 'about', to: 'about#index', as: :about
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :transactions
-  # Defines the root path route ("/")
-  resources :feature_uses
-
-  resources :plans do
-    resources :features
-    resources :checkout
+  devise_for :users, skip: [:registrations]
+  resources :feature_uses, only: %i[index create destroy]
+  resources :plans, only: %i[index show] do
+    resources :checkout, only: :index
   end
   devise_scope :user do
     root to: 'devise/sessions#new'

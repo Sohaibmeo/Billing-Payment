@@ -1,0 +1,16 @@
+
+one:
+  description: MyString
+  amount: 1
+  billing_cycle: 1
+  hosted_invoice_url: MyString
+  invoice_pdf: MyString
+  user: one
+
+two:
+  description: MyString
+  amount: 1
+  billing_cycle: 1
+  hosted_invoice_url: MyString
+  invoice_pdf: MyString
+  user: two

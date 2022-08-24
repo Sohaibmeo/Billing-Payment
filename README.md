@@ -1,24 +1,60 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Gems Needed versions: 
 
-Things you may want to cover:
+gem 'rails', '~> 7.0.3'
 
-* Ruby version
+gem 'ruby' '3.0.0'
 
-* System dependencies
+gem 'stripe', '~> 6.5'
 
-* Configuration
+gem 'devise'
+
+gem 'devise_invitable', '~> 2.0.0'
+
+gem 'rails_admin', '~> 3.0'
+
+
+* Config.application: 
+
+    require_relative 'boot'
+
+    require 'rails/all'
+
+    Bundler.require(*Rails.groups)
+
+    module Project
+    class Application < Rails::Application
+        config.load_defaults 7.0
+    end
+    end
 
 * Database creation
+Post gres gem 'pg'
+rails db:migrate
+rails db:setup
 
-* Database initialization
+* Check out the repository
 
-* How to run the test suite
+git clone https://github.com/SohaibMao/Billing-Payment
 
-* Services (job queues, cache servers, search engines, etc.)
+* Start the Rails server
 
-* Deployment instructions
+You can start the rails server using the command given below.
 
-* ...
+bundle install
+rails s
+
+And now you can visit the site with the URL https://booktrekker.herokuapp.com/
+
+
+* Seed User Admin Account:
+name      : sohaibmayo12@gmail.com
+password  : Devsinc
+
+* Other Accounts : 
+name      :f180166@nu.edu.pk
+name      :sohaib.mmeo@devsinc.com
+pass      : Devsinc
+
+

@@ -2,20 +2,45 @@
 
 class SubscriptionsController < ApplicationController
   def index
-    @my_plan_id = params[:my_plan_id]
-    @subscription_id = Stripe::Subscription.list({limit: 3, customer: current_user.customer_id }).first.id
+    @subscriptions = Subscription.where(user_id: current_user.id)
+    authorize @subscriptions
+  end
+
+  def show
+    @subscription = current_user.subscriptions.find(params[:id])
+    authorize @subscription
+    @stripe_subscription = StripeSubscription.new(@subscription.subscription_id).retreive_subscription
+  end
+
+  def new
+    @my_plan_id = session['plan_id']
     @subscription = Subscription.new
+    authorize @subscription
   end
 
   def create
     subscription = Subscription.new(subscription_params)
-    subscription.user_id = current_user.id
-    subscription.plan_id = params[:subscription][:plan_id]
-    subscription.subscription_id = params[:subscription][:subscription_id]
-    subscription.save
+    authorize subscription
+    if subscription.save
+      redirect_to new_transaction_path, notice: 'Subscribed successfully'
+    else
+      redirect_to plans_path, alert: 'Subscription Interrupted'
+    end
   end
 
+  def destroy
+    subscription = current_user.subscriptions.find(params[:id])
+    authorize subscription
+    if subscription.destroy
+      redirect_to subscriptions_path, notice: 'Succesfully Unsubscribed'
+    else
+      redirect_to subscriptions_path, alert: 'Could Not Unsubscribe'
+    end
+  end
+
+  private
+
   def subscription_params
-    params.require(:subscription).permit(:subscription_id, :user_id, :plan_id)
+    params.require(:subscription).permit(:user_id, :plan_id, :overuse)
   end
 end

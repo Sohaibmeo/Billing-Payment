@@ -1,8 +1,0 @@
-<script>
-
-var stripe= Stripe("<%= Rails.application.credentials.STRIPE_PUBLISHABLE_KEY %>")
- stripe.redirectToCheckout({
-    sessionId: '<%= @session.id %>'
-  }).then(function (result) {
-  });
-</script>
