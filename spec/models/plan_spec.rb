@@ -29,5 +29,11 @@ RSpec.describe Plan, type: :model do
 
   context 'with callbacks' do
     it { expect(plan).to callback(:assign_product_id).after(:commit) }
+
+    it 'has a price in stripe' do
+      plan.save
+      retrieved = Stripe::Price.retrieve(plan.product_id)
+      expect(retrieved).not_to be_nil
+    end
   end
 end

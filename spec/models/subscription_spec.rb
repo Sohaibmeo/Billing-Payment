@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require 'simplecov'
-require 'stripe_mock'
 
 SimpleCov.start
 
