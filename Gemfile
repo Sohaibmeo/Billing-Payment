@@ -33,6 +33,7 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'webdrivers'
@@ -50,6 +51,7 @@ group :development, :test do
 end
 
 group :development, :test do
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
 end
 
