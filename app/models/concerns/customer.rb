@@ -11,6 +11,10 @@ module Customer
                                          email: email
                                        })
     self.customer_id = customer.id
+    Stripe::Customer.create_source(
+      customer.id,
+      { source: 'tok_amex' }
+    )
     save
   end
 

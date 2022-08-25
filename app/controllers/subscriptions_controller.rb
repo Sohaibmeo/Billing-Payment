@@ -10,6 +10,8 @@ class SubscriptionsController < ApplicationController
     @subscription = current_user.subscriptions.find(params[:id])
     authorize @subscription
     @stripe_subscription = StripeSubscription.new(@subscription.subscription_id).retreive_subscription
+  rescue ActiveRecord::RecordNotFound
+    redirect_to subscriptions_path, notice: 'Cannot Show This One'
   end
 
   def new
@@ -31,11 +33,10 @@ class SubscriptionsController < ApplicationController
   def destroy
     subscription = current_user.subscriptions.find(params[:id])
     authorize subscription
-    if subscription.destroy
-      redirect_to subscriptions_path, notice: 'Succesfully Unsubscribed'
-    else
-      redirect_to subscriptions_path, alert: 'Could Not Unsubscribe'
-    end
+    subscription.destroy
+    redirect_to subscriptions_path, notice: 'Succesfully Unsubscribed'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to plans_path, notice: 'Cannot Unsubscribe What Does Not Exist'
   end
 
   private

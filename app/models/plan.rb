@@ -7,5 +7,5 @@ class Plan < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :features, through: :items, dependent: :destroy
   validates :name, uniqueness: true, presence: true
-  validates :price, numericality: { greater_than: 0 }
+  validates :price, presence: true, numericality: { greater_than: 0 }
 end

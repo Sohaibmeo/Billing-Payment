@@ -33,6 +33,9 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
+  gem 'shoulda-matchers'
+  gem 'simplecov'
   gem 'webdrivers'
 end
 
@@ -46,3 +49,12 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec' # or gem 'rubocop-rspec' depending on your test suite
 end
+
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+end
+
+gem "rails-controller-testing", "~> 1.0"
+
+gem "stripe-ruby-mock", "~> 2.5"

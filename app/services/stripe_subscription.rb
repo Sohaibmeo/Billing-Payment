@@ -6,18 +6,15 @@ class StripeSubscription
   end
 
   def retreive_subscription
-    Stripe::Subscription.retrieve(
-      @subscription
-    )
+    Stripe::Subscription.retrieve(@subscription) unless @subscription.nil?
   end
 
   def delete_subscription
-    Stripe::Subscription.delete(
-      @subscription.id
-    )
+    Stripe::Subscription.delete(@subscription.id) unless @subscription.nil?
   end
 
   def recent_subscription
-    Stripe::Subscription.list({ customer: @subscription }).first.id
+    subscription = Stripe::Subscription.list({ customer: @subscription }).first
+    subscription&.id unless subscription.nil?
   end
 end

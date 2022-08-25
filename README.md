@@ -57,4 +57,6 @@ name      :f180166@nu.edu.pk
 name      :sohaib.mmeo@devsinc.com
 pass      : Devsinc
 
+Testing : 
+command : rails spec
 
