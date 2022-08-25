@@ -2,14 +2,20 @@
 
 require 'rails_helper'
 require 'simplecov'
-
+require 'stripe_mock'
+require 'support/helpers'
 SimpleCov.start
+
+RSpec.configure do |c|
+  c.include Helpers
+end
 
 RSpec.describe Subscription, type: :model do
   let(:plan) { create(:plan) }
   let(:user) { create(:user) }
-  let(:test_sub) { Stripe::Subscription.create(customer: user.customer_id, items: [{ price: plan.product_id }]) }
-  let(:subscription) { build(:subscription, user_id: user.id, plan_id: plan.id, subscription_id: test_sub.id) }
+  let(:stripe_helper) { StripeMock.create_test_helper }
+  let(:stripe_subscription) { get_stripe_id(plan, user, stripe_helper) }
+  let(:subscription) { build(:subscription, user_id: user.id, plan_id: plan.id, subscription_id: stripe_subscription) }
 
   context 'with validations' do
     it { expect(subscription).to validate_uniqueness_of(:plan_id).scoped_to(:user_id) }
