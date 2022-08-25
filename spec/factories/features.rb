@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :feature do
-    name { 'whatever' }
-    code { '1234' }
+    sequence(:name) { |n| "whatever#{n}" }
+    sequence(:code) { |n| "00#{n}" }
     max_unit_limit { 1 }
     unit_price { 1 }
   end

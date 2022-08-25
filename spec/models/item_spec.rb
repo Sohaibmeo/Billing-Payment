@@ -5,9 +5,7 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe Item, type: :model do
-  let(:plan) { create(:plan) }
-  let(:feature) { create(:feature) }
-  let(:item) { create(:item, feature_id: feature.id, plan_id: plan.id) }
+  let(:item) { create(:item) }
 
   context 'with associations' do
     it { expect(item).to belong_to(:feature) }

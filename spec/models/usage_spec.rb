@@ -5,9 +5,7 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe Usage, type: :model do
-  let(:user) { create(:user) }
-
-  let(:usage) { build(:usage, user_id: user.id) }
+  let(:usage) { build(:usage) }
 
   context 'with associations' do
     it { expect(usage).to belong_to(:user) }

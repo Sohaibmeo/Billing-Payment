@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :usage do
-    user_id { 0 }
+    user
   end
 end

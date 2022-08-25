@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :subscription do
-    user_id { 20 }
-    plan_id { 20 }
+    user
+    plan
     overuse { 20 }
-    subscription_id { 'hehe' }
+    subscription_id { 'sub_1LaSgB2xToAoV8ch4AsYgt0y' }
   end
 end

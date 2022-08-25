@@ -6,8 +6,7 @@ SimpleCov.start
 
 RSpec.describe Transaction, type: :model do
   let(:user) { create(:user) }
-
-  let(:transaction) { build(:transaction, user_id: user.id) }
+  let(:transaction) { build(:transaction) }
 
   context 'with validations' do
     it { expect(transaction).to validate_numericality_of(:amount).is_greater_than(0) }

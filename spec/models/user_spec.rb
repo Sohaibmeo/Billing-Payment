@@ -23,11 +23,5 @@ RSpec.describe User, type: :model do
 
   context 'when callbacks' do
     it { expect(user).to callback(:assign_customer_id).after(:commit) }
-
-    it 'has a customer_id connected to stripe' do
-      user.save
-      retrieved = Stripe::Customer.retrieve(user.customer_id)
-      expect(retrieved).not_to be_nil
-    end
   end
 end

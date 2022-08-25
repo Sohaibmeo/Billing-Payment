@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :transaction do
-    user_id { 0 }
+    user
     amount { 1 }
     billing_cycle { 1 }
   end

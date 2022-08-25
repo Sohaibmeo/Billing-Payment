@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :item do
-    feature_id { 0 }
-    plan_id { 0 }
+    feature
+    plan
   end
 end

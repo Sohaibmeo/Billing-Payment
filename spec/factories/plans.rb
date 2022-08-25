@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :plan do
-    name { 'Hello' }
+    sequence(:name) { |n| "Hello#{n}" }
     price { 20 }
   end
 end

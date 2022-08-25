@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :feature_use do
-    feature_id { 0 }
-    usage_id { 0 }
+    feature
+    usage_id { 1 }
     total_units { 6 }
     plan_id { 1 }
   end
