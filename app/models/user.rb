@@ -2,26 +2,12 @@
 
 # here
 class User < ApplicationRecord
-  has_one :usage
-  has_many :subscriptions
-  has_many :plans, through: :subscriptions
-  after_commit :assign_customer_id, :assign_usage, on: :create
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  include Customer
+  scope :existing_subscriptions, -> { joins(:subscriptions).group('users.id').having('count(subscriptions.id) > 0') }
+  has_many :transactions, dependent: :destroy
+  has_one :usage, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :plans, through: :subscriptions, dependent: :destroy
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-  def assign_customer_id
-    customer = Stripe::Customer.create({
-                                         email: email
-                                       })
-
-    self.customer_id = customer.id
-    save
-  end
-
-  def assign_usage
-    build_usage
-  end
 end

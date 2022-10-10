@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_211057) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_17_094717) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "feature_uses", force: :cascade do |t|
     t.integer "total_units"
-    t.integer "usage_id", null: false
-    t.integer "feature_id", null: false
+    t.bigint "usage_id", null: false
+    t.bigint "feature_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "plan_id"
+    t.index ["feature_id", "plan_id", "usage_id"], name: "index_feature_uses_on_feature_id_and_plan_id_and_usage_id", unique: true
     t.index ["feature_id"], name: "index_feature_uses_on_feature_id"
     t.index ["usage_id"], name: "index_feature_uses_on_usage_id"
   end
@@ -28,21 +33,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_211057) do
     t.integer "max_unit_limit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "features_usages", id: false, force: :cascade do |t|
-    t.integer "feature_id"
-    t.integer "usage_id"
-    t.index ["feature_id"], name: "index_features_usages_on_feature_id"
-    t.index ["usage_id"], name: "index_features_usages_on_usage_id"
+    t.index ["code"], name: "index_features_on_code", unique: true
+    t.index ["name"], name: "index_features_on_name", unique: true
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "plan_id", null: false
-    t.integer "feature_id", null: false
+    t.bigint "plan_id", null: false
+    t.bigint "feature_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["feature_id"], name: "index_items_on_feature_id"
+    t.index ["plan_id", "feature_id"], name: "index_items_on_plan_id_and_feature_id", unique: true
     t.index ["plan_id"], name: "index_items_on_plan_id"
   end
 
@@ -53,22 +54,39 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_211057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "product_id"
+    t.index ["name"], name: "index_plans_on_name", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "subscription_id"
-    t.integer "plan_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "plan_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "overuse"
+    t.integer "date_end"
+    t.index ["plan_id", "user_id"], name: "index_subscriptions_on_plan_id_and_user_id", unique: true
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "description"
+    t.integer "amount"
+    t.integer "billing_cycle"
+    t.text "hosted_invoice_url"
+    t.text "invoice_pdf"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["billing_cycle", "user_id"], name: "index_transactions_on_billing_cycle_and_user_id", unique: true
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "usages", force: :cascade do |t|
     t.boolean "over_limit"
     t.float "overuse_total"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_usages_on_user_id", unique: true
@@ -89,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_211057) do
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
-    t.integer "invited_by_id"
+    t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -105,5 +123,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_211057) do
   add_foreign_key "items", "plans"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "subscriptions", "users"
+  add_foreign_key "transactions", "users"
   add_foreign_key "usages", "users"
 end
