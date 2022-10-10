@@ -1,0 +1,17 @@
+
+<h1>Feature Usages History:</h1> 
+<% policy_scope(@feature_use).each do |feature_use| %>
+  <% policy(feature_use) %>
+  <% if feature_use.total_units > 0 %>
+    <% feature = feature_by_id(feature_use.feature_id) %>
+    <p><strong>Feature Name : <%= feature.name %>  </strong></p>
+    <p>Feature Price : <%= feature.unit_price %>  </p>
+    <% plan = plan_by_id(feature.plan_ids) %>
+    <p> Plan : <%= plan.name %>  </p>
+    <p> Used amount : <%= feature_use.total_units %> </p>
+    <p> Max limit : <%= feature.max_unit_limit %>  </p>
+    <% if feature_use.total_units > feature.max_unit_limit %>
+      <b>OVER USED</b>
+    <% end %>
+  <% end %>
+<% end %>

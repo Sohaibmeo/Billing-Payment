@@ -3,7 +3,4 @@
 require 'test_helper'
 
 class SubsciptionControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
 end

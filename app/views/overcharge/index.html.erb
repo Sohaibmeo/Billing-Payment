@@ -1,0 +1,22 @@
+<% @users.each do |user| %>
+  <b>User : </b><%= user.email %>
+  <% policy_scope(user.plans).each do |plan| %>
+    <% policy(plan) %>
+    <br><b>Subscription : </b><%= plan.name %>
+    <% feature_uses = feature_use_by_plan_usage(plan.id, user.usage.id) %>
+    <% subscription = subscription_by_plan_user(plan.id, user) %>
+    <% policy(subscription) %>
+    <% policy_scope(feature_uses).each do |feature_use| %>
+      <% policy(feature_use) %>
+      <% calculate_units(feature_use, subscription) %>
+    <% end %>
+    <% if subscription.save %>
+      <b>Billing Date: </b><%= time_zone(subscription.date_end) %>
+      <b>Overcharge : </b><%= subscription.overuse %>
+    <% end %>
+    <% if time_date(subscription.date_end) == time_date(Time.now.to_i) && subscription.overuse > 0 %>
+      <% session['subscription'] = subscription.id %>
+      <%= link_to 'Charge', overcharge_create_url, class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+<% end %>

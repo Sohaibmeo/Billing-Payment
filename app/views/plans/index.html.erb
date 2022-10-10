@@ -1,10 +1,18 @@
-
-<p>
-<% @plan.each do |p| %>
-    <%= p.name %>
-    <br>
-    <%= p.price %>
-    
-    <%= link_to 'Read More' ,plan_path(p) ,:class => 'btn btn-primary' %> 
-    <br>
-<% end %> </p>
+<div>
+  <p>
+  <% policy_scope(@plans).each do |plan| %>
+    <% policy(plan) %>
+    <p><b>Plan Name: </b><%= plan.name %> </p>
+    <p><b>Price:  </b><%= plan.price %></p>
+    <% subscribed = subscribed(plan.id) %>
+    <% if subscribed.nil? %>
+      <%= link_to 'Subscribe' ,plan_path(plan), class: 'btn btn-primary' %> 
+    <% else %>
+      <% policy(subscribed) %>
+      <%= link_to 'View Subscription' ,subscription_path(subscribed.id), class: 'btn btn-success' %> 
+    <% end %>
+    <br><hr>
+    <% end %> 
+  </p>
+</div>
+<br>
